@@ -2,7 +2,7 @@
 const express = require('express')
 const cors = require("cors");
 const db = require("./db");
-const { Entry } = require("./models");
+const { Entry, User } = require("./models");
 const logger = require("morgan");
 
 //////// DEFINE VARIABLES /////////////
@@ -20,7 +20,15 @@ app.get("/", (req, res) => {
   res.send("This is root!");
 });
 
+app.get("/user", async (req, res) => {
+  const users = await User.find({})
+  res.json(users)
+})
 
+app.get("/entry", async (req, res) => {
+  const entries = await Entry.find({})
+  res.json(entries)
+})
 
 
 
