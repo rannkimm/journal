@@ -1,0 +1,21 @@
+{
+  "name": "journal",
+  "version": "1.0.0",
+  "description": "**** ### Description #### With everyday passing by in a blink of an eye, setting daily goals to better yourself, and cherishing small moments in life can be hard. Create your daily to do lists, set your goals, and record the highlights of your day with JOURNAL. **** ### Get Started - Fork and Clone - git add and git commit all changes **** ### Technologies Used - HTML - CSS - JAVASCRIPT - REACT - EXPRESS - MONGODB - MONGOOSE - NODE - GITHUB - VSCODE - HEROKU **** ### Using the website #### First sign in. Log your daily journal entries and connect with others in the connect tab. **** ### Credits",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rannkimm/journal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rannkimm/journal/issues"
+  },
+  "homepage": "https://github.com/rannkimm/journal#readme"
+}
