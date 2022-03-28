@@ -5,7 +5,7 @@ const UserSchema = require("./user")
 
 
 ////////////////////// SET UP MODELS //////////////////////
-const Entry = model("entry", ReviewSchema);
+const Entry = model("entry", EntrySchema);
 const User = model("user", UserSchema);
 
 
