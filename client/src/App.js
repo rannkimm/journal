@@ -1,25 +1,74 @@
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
+import Home from './components/Home';
+import Entry from './components/Entry';
+import Nav from './components/Nav';
+import Nav2 from './components/Nav2';
+import PostComment from './components/PostComment';
+import User from './components/User';
+import UserEntry from './components/UserEntry';
+import { useEffect, useState } from 'react'
+
 
 function App() {
+const [userEntry, setUserEntry] = useState([])
+const [newUserEntry, setNewUserEntry] = useState({
+  date: '',
+  goal: '',
+  toDo: '',
+  message: '',
+})
+
+useEffect (() => {
+  async function getUserEntry() {
+    try {
+      let res = await axios.get('http://localhost:3001/entry')
+      setUserEntry(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  getUserEntry()
+})
+
+const addNewUserEntry = async (e) => {
+  e.preventDefault()
+  const currentEntry = userEntry
+  const createEntry = {
+    ...newUserEntry,
+    date: newUserEntry.date,
+    goal: newUserEntry.goal,
+    toDo: newUserEntry.toDo,
+    message: newUserEntry.message
+  }
+
+  let res = await axios.post('http://localhost:3001/entry/new', createEntry)
+  currentEntry.push(res.data)
+  setUserEntry(currentEntry)
+  setNewUserEntry({date: '', goal: '', toDo: '', message: '',})
+}
+
+const handleChange = (e) => {
+  setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav />
+      <Nav2 />
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/userentry" element={<UserEntry userEntry={userEntry}/>} />
+          <Route path="/userentry/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
+          <Route path="/postcomment" element={<PostComment />} />
+        </Routes>
+      </main>
+
     </div>
   );
 }

@@ -2,7 +2,7 @@ const User = () => {
 
 
     return (
-        <div>user</div>
+        <div>user signin/login</div>
     )
 }
 

@@ -30,6 +30,11 @@ app.get("/entry", async (req, res) => {
   res.json(entries)
 })
 
+app.post("/entry/new", async (req, res) => {
+  const newEntry = await Entry.create(req.body);
+  await res.json(newReview);
+});
+
 
 
 
