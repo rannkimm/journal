@@ -6,18 +6,19 @@ const SelectedEntry = (props) => {
 
     const [selectedEntry, setSelectedEntry] = useState('')
 
-    let {_id} = useParams()
+    let {id} = useParams()
 
     useEffect(() => {
-        let currentEntry = props.userEntry.find((entry) =>
-        (entry._id === parseInt(_id)
-            ))
-        setSelectedEntry(currentEntry)
+        // let currentEntry = props.oneEntry.find((entry) =>
+        // (entry._id === parseInt(id)
+        //     ))
+        // setSelectedEntry(currentEntry)
     }, [])
 
 
     return (
         <div>
+            This component is rendered
                     <div key={selectedEntry._id}>
                         <p>{selectedEntry.date}</p>
                         <p>{selectedEntry.goal}</p>
