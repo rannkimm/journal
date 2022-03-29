@@ -30,10 +30,16 @@ app.get("/entry", async (req, res) => {
   res.json(entries)
 })
 
+app.put("/entry/:id", async (req, res) => {
+  const selected = await Entry.findByIdAndUpdate(req.params.id)
+  res.json(selected)
+})
+
 app.post("/entry/new", async (req, res) => {
   const newEntry = await Entry.create(req.body);
   await res.json(newReview);
 });
+
 
 
 

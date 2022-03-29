@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Nav2 from './components/Nav2';
 import PostComment from './components/PostComment';
 import User from './components/User';
+import SelectedEntry from './components/SelectedEntry';
 import UserEntry from './components/UserEntry';
 import { useEffect, useState } from 'react'
 
@@ -64,6 +65,7 @@ const handleChange = (e) => {
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<User />} />
           <Route path="/userentry" element={<UserEntry userEntry={userEntry}/>} />
+          <Route path="/userentry/:id" element={<SelectedEntry userEntry={userEntry}/>} />
           <Route path="/userentry/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
           <Route path="/postcomment" element={<PostComment />} />
         </Routes>
