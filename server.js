@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger("dev"));
+app.use(express.static(`${__dirname}/client/build`))
 
 /////////// ROUTES //////////////////////
 app.get("/", (req, res) => {
@@ -30,12 +31,10 @@ app.get("/entry", async (req, res) => {
   res.json(entries)
 })
 
-app.get("/entry/:id", async (req, res) => {
-  const one = await Entry.findById(req.params.id)
-  console.log(req.body)
- console.log(selected)
-  res.json(one)
-})
+// app.get("/entry/:id", async (req, res) => {
+//   const one = await Entry.findById(req.params.id)
+//   res.json(one)
+// })
 
 app.put("/entry/:id/update", async (req, res) => {
   const selected = await Entry.findByIdAndUpdate({_id:req.params.id}, req.body.data, {new: true})
@@ -51,7 +50,9 @@ app.post("/entry/new", async (req, res) => {
 
 
 
-
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/client/build/index.html`)
+ })
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)

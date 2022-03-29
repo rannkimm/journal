@@ -1,10 +1,13 @@
 ////////////// IMPORT ////////////////
 
 const mongoose = require("mongoose");
+require('dotenv').config() 
 
 ////////////// USE MONGOOSE TO CONNECT TO MONGODB //////////////////////
+let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://127.0.0.1:27017/journalDatabase'
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/journalDatabase")
+  .connect(dbUrl)
   .then(() => {
     console.log("Successfully connected to MongoDB");
   })

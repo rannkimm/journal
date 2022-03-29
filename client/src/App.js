@@ -21,8 +21,7 @@ const [newUserEntry, setNewUserEntry] = useState({
   toDo: '',
   message: '',
 })
-const [oneEntry, setOneEntry] = useState([])
-// const [updateUserEntry, setUpdateUserEntry] = useState([])
+
 
 useEffect (() => {
   async function getUserEntry() {
@@ -58,16 +57,7 @@ const handleChange = (e) => {
   setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
 }
 
-const findOneEntry = async (e) => {
-  let res = await axios.get('http://localhost:3001/entry/:id')
-  setOneEntry(res.data)
-}
 
-
-// const AddUpdateUserEntry = async (e) => {
-//   e.preventDefault()
-//   let res = await axios.put('http://localhost:3001/entry/:id/update')
-// }
 
   return (
     <div className="App">
@@ -79,8 +69,8 @@ const findOneEntry = async (e) => {
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<User />} />
           <Route path="/userentry" element={<UserEntry userEntry={userEntry}/>} />
-          <Route path="/userentry/:id" element={<SelectedEntry oneEntry={oneEntry}/>} />
-          <Route path="/userentry/:id/update" element={<UpdateEntry userEntry={userEntry}/>} />
+          <Route path="/userentry/:id/*" element={<SelectedEntry userEntry={userEntry}/>} />
+          <Route path="/userentry/:id/update" element={<UpdateEntry />} />
           <Route path="/userentry/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
           <Route path="/postcomment" element={<PostComment />} />
         </Routes>
