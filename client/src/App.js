@@ -24,6 +24,7 @@ const [newUserEntry, setNewUserEntry] = useState({
 })
 
 
+
 useEffect (() => {
   async function getUserEntries() {
     try {
@@ -58,7 +59,41 @@ const handleChange = (e) => {
   setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
 }
 
+const updateUserEntry = async () => {
+  const updateEntry = {
+    ...selectedEntry
+  }
 
+  let updatedEntry = await axios({
+    url: `http://localhost:3001/entry/${updateEntry._id}/update`,
+    method: 'put',
+    data: updateEntry
+  })
+
+  const toChangeEntry = userEntries.find((entry) => entry._id === updatedEntry.data._id)
+
+  userEntries.splice(toChangeEntry, 1, updateEntry)
+
+  setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
+}
+
+const updatehandleChange = (e) => {
+  setSelectedEntry({...selectedEntry, [e.target.name]: e.target.value })
+}
+
+const deleteEntry = async () => {
+  const toDelete = selectedEntry
+
+ let deletedEntry = await axios({
+    url: `http://localhost:3001/entry/${toDelete._id}`,
+    method: 'delete',
+    data: toDelete
+  })
+  const toDeleteEntry = userEntries.find((entry) => entry._id === deletedEntry.data)
+  userEntries.splice(toDeleteEntry, 1)
+  
+  setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
+}
 
   return (
     <div className="App">
@@ -70,8 +105,8 @@ const handleChange = (e) => {
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<User />} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries}/>} />
-          <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry}/>} />
-          <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry}/>} />
+          <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry} deleteEntry={deleteEntry}/>} />
+          <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
           <Route path="/userentry/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
           <Route path="/postcomment" element={<PostComment />} />
         </Routes>

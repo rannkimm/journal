@@ -1,8 +1,6 @@
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
+import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import UpdateEntry from "./UpdateEntry"
 
 const SelectedEntry = (props) => {
 
@@ -18,6 +16,14 @@ const SelectedEntry = (props) => {
         getCurrentEntry()
     })
 
+    let navigate = useNavigate()
+
+    const deleteButton = (e) => {
+        e.preventDefault()
+        props.deleteEntry(props.selectedEntry)
+        navigate('/userentries')
+    }
+
    
 
     return props.selectedEntry ? (
@@ -28,9 +34,9 @@ const SelectedEntry = (props) => {
                 <p>{props.selectedEntry.toDo}</p>
                 <p>{props.selectedEntry.message}</p>
                 <Link to={'update'}>Edit</Link>
-                <button>Delete</button>
+                <button onClick={deleteButton}>Delete</button>
             </div>
-            <Link to={'/userentry'}><button>Back</button></Link>
+            <Link to={'/userentries'}><button>Back</button></Link>
 
         </div>
     ) : null

@@ -7,7 +7,7 @@ const Entry = (props) => {
     const submitData = (e) => {
         e.preventDefault()
         props.addNewUserEntry(e)
-        navigate('/userentry')
+        navigate('/userentries')
     }
 
     return (

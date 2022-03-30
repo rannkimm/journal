@@ -1,8 +1,16 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
+
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const UpdateEntry = (props) => {
-const [newUpdateEntry, setNewUpdateEntry] = useState()
+
+    let navigate = useNavigate()
+
+    const submitData = (e) => {
+        e.preventDefault()
+        props.updateUserEntry(props.selectedEntry)
+        navigate('/userentries')
+    }
 
 
 
@@ -14,11 +22,11 @@ useEffect (() => {
     return (
         <div>
             this page is connected
-            <form >
-                <input type='text' value={props.selectedEntry.date}  name={'date'} />
-                <input type='text' value={props.selectedEntry.goal}  name={'goal'} />
-                <input type='text' value={props.selectedEntry.toDo}  name={'toDo'} />
-                <input type='text' value={props.selectedEntry.message} name={'message'} />
+            <form onSubmit={submitData}>
+                <input type='text' value={props.selectedEntry.date} onChange={props.handleChange} name={'date'} />
+                <input type='text' value={props.selectedEntry.goal} onChange={props.handleChange} name={'goal'} />
+                <input type='text' value={props.selectedEntry.toDo} onChange={props.handleChange} name={'toDo'} />
+                <input type='text' value={props.selectedEntry.message} onChange={props.handleChange} name={'message'} />
                 <button>Submit</button>
             </form>
         </div>

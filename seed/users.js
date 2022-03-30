@@ -17,7 +17,7 @@ const main = async () => {
     {
         name: 'San Kim',
         email: 'sanfakeemail@gmail.com',
-        password: '123123dankim'
+        password: '123123sankim'
     }
   ]
     

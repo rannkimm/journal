@@ -31,16 +31,17 @@ app.get("/entry", async (req, res) => {
   res.json(entries)
 })
 
-// app.get("/entry/:id", async (req, res) => {
-//   const one = await Entry.findById(req.params.id)
-//   res.json(one)
-// })
 
 app.put("/entry/:id/update", async (req, res) => {
-  const selected = await Entry.findByIdAndUpdate({_id:req.params.id}, req.body.data, {new: true})
   console.log(req.body)
- console.log(selected)
+  const selected = await Entry.findByIdAndUpdate({_id:req.params.id}, req.body, {new: true})
+ 
   res.json(selected)
+})
+
+app.delete("/entry/:id", async (req, res) => {
+  await Entry.findByIdAndDelete(req.params.id)
+  res.send(req.params.id)
 })
 
 app.post("/entry/new", async (req, res) => {
