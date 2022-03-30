@@ -1,3 +1,4 @@
+import Nav2 from './Nav2'
 import { useNavigate } from "react-router-dom"
 
 const UserEntry = (props) => {
@@ -10,6 +11,7 @@ const showEntry = (entry) => {
 
 return (
     <div>
+        <Nav2 />
         <div>
             {props.userEntries.map((entry) => (
                 <div onClick={() => showEntry(entry)} key={entry._id}>

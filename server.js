@@ -26,6 +26,13 @@ app.get("/user", async (req, res) => {
   res.json(users)
 })
 
+
+
+
+
+
+
+
 app.get("/entry", async (req, res) => {
   const entries = await Entry.find({})
   res.json(entries)

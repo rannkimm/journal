@@ -8,7 +8,7 @@ const Nav2 = () => {
             <nav>
                 <Link to='/'>Logout</Link>
                 <Link to='/userentries'>My Entries</Link>
-                <Link to='/userentry/entry'>New entry</Link>
+                <Link to='/userentries/entry'>New entry</Link>
                 <Link to='/postcomment'>Post</Link>
             </nav>
         </header>

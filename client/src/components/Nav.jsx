@@ -7,8 +7,8 @@ const Nav = () => {
         <header>
             <nav>
                 <Link to='/'>Home</Link>
-                <Link to='/user'>Signin</Link>
-                <Link to='/user'>Login</Link>
+                <Link to='/userlogin'>Login</Link>
+                <Link to='/usersignin'>Signin</Link>
             </nav>
         </header>
     )

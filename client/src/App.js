@@ -3,10 +3,9 @@ import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
 import Home from './components/Home';
 import Entry from './components/Entry';
-import Nav from './components/Nav';
-import Nav2 from './components/Nav2';
 import PostComment from './components/PostComment';
-import User from './components/User';
+import UserLogin from './components/UserLogin';
+import UserSignin from './components/UserSignIn'
 import SelectedEntry from './components/SelectedEntry';
 import UserEntry from './components/UserEntry';
 import UpdateEntry from './components/UpdateEntry';
@@ -14,6 +13,8 @@ import { useEffect, useState } from 'react'
 
 
 function App() {
+const [users, setUsers] = useState([])
+
 const [userEntries, setUserEntries] = useState([])
 const [selectedEntry, setSelectedEntry] = useState({})
 const [newUserEntry, setNewUserEntry] = useState({
@@ -36,7 +37,20 @@ useEffect (() => {
   }
 
   getUserEntries()
-}, [])
+  
+  async function getAllUsers() {
+    let response = await axios.get('http://localhost:3001/user')
+    setUsers(response.data)
+    
+  }
+
+getAllUsers()
+
+},[])
+
+const addNewUser = async (e) => {
+  e.preventDefault()
+}
 
 const addNewUserEntry = async (e) => {
   e.preventDefault()
@@ -97,17 +111,17 @@ const deleteEntry = async () => {
 
   return (
     <div className="App">
-      <Nav />
-      <Nav2 />
+
 
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/userlogin" element={<UserLogin />} />
+          <Route path="/usersignin" element={<UserSignin />} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries}/>} />
           <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry} deleteEntry={deleteEntry}/>} />
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
-          <Route path="/userentry/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
+          <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
           <Route path="/postcomment" element={<PostComment />} />
         </Routes>
       </main>
