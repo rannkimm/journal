@@ -61,11 +61,13 @@ function App() {
     }
 
     let res = await axios.post('http://localhost:3001/user/signin', createUser)
-    currentUsersList.push(res.data)
+    let createdUser = res.data
+    currentUsersList.push(createdUser)
     setUsers(currentUsersList)
     setNewUser({name: '', email: '', password: ''})
     console.log('list of users',users)
-
+    setCurrentUser(createdUser)
+    console.log('this is created user', createdUser)
   }
 
   const userHandleChange = (e) => {
@@ -137,7 +139,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} />} />
+          <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentEntry={currentUser}/>} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries}/>} />
           <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry} deleteEntry={deleteEntry}/>} />
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
