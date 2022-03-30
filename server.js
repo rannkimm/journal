@@ -26,6 +26,10 @@ app.get("/user", async (req, res) => {
   res.json(users)
 })
 
+app.post("/user/signin", async (req, res) => {
+  const newUser = await User.create(req.body)
+  await res.json(newUser)
+})
 
 
 
