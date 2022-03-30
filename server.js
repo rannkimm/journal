@@ -46,7 +46,6 @@ app.get("/entry", async (req, res) => {
 app.put("/entry/:id/update", async (req, res) => {
   console.log(req.body)
   const selected = await Entry.findByIdAndUpdate({_id:req.params.id}, req.body, {new: true})
- 
   res.json(selected)
 })
 

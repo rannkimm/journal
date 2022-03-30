@@ -40,21 +40,33 @@ function App() {
         console.log(error)
       }
     }
-
     getUserEntries()
     
     async function getAllUsers() {
       let response = await axios.get('http://localhost:3001/user')
       setUsers(response.data)
-      
     }
-
     getAllUsers()
-
   },[])
 
   const addNewUser = async (e) => {
     e.preventDefault()
+    const currentUsersList = users
+    const createUser = {
+      ...newUser,
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password
+    }
+
+    let res = await axios.post('http://localhost:3001/user/signin', createUser)
+    currentUsersList.push(res.data)
+    setUsers(currentUsersList)
+    setNewUser({name: '', email: '', password: ''})
+  }
+
+  const userHandleChange = (e) => {
+    setNewUser({...newUser, [e.target.name]: [e.target.value]})
   }
 
   const addNewUserEntry = async (e) => {
@@ -122,7 +134,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/usersignin" element={<UserSignin />} />
+          <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} />} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries}/>} />
           <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry} deleteEntry={deleteEntry}/>} />
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
