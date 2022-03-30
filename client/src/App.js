@@ -19,6 +19,7 @@ function App() {
     email: '',
     password: ''
   })
+  const [currentUser, setCurrentUser] = useState ({})
 
   const [userEntries, setUserEntries] = useState([])
   const [selectedEntry, setSelectedEntry] = useState({})
@@ -63,10 +64,12 @@ function App() {
     currentUsersList.push(res.data)
     setUsers(currentUsersList)
     setNewUser({name: '', email: '', password: ''})
+    console.log('list of users',users)
+
   }
 
   const userHandleChange = (e) => {
-    setNewUser({...newUser, [e.target.name]: [e.target.value]})
+    setNewUser({...newUser, [e.target.name]: e.target.value})
   }
 
   const addNewUserEntry = async (e) => {
