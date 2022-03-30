@@ -1,42 +1,37 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import UpdateEntry from "./UpdateEntry"
 
 const SelectedEntry = (props) => {
-    const [selectedEntry, setSelectedEntry] = useState()
 
     let {id} = useParams()
     useEffect(() => {
         async function getCurrentEntry() {
-            let currentEntry = await props.userEntry.find( (entry) => {
-                console.log(entry._id)
-                console.log(id)
+            let currentEntry = await props.userEntries.find( (entry) => {
                 return entry._id === id
             })
-            setSelectedEntry(currentEntry)
-            console.log(selectedEntry)
+            props.setSelectedEntry(currentEntry)
+
         }
         getCurrentEntry()
     })
 
    
 
-    return selectedEntry ? (
+    return props.selectedEntry ? (
         <div>
             <div >
-                <p>{selectedEntry.date}</p>
-                <p>{selectedEntry.goal}</p>
-                <p>{selectedEntry.toDo}</p>
-                <p>{selectedEntry.message}</p>
-                <button>Edit</button>
+                <p>{props.selectedEntry.date}</p>
+                <p>{props.selectedEntry.goal}</p>
+                <p>{props.selectedEntry.toDo}</p>
+                <p>{props.selectedEntry.message}</p>
+                <Link to={'update'}>Edit</Link>
                 <button>Delete</button>
             </div>
             <Link to={'/userentry'}><button>Back</button></Link>
-            <Routes>
-                <Route path="/userentry/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} />} />
-            </Routes>
+
         </div>
     ) : null
 }

@@ -11,7 +11,7 @@ const showEntry = (entry) => {
 return (
     <div>
         <div>
-            {props.userEntry.map((entry) => (
+            {props.userEntries.map((entry) => (
                 <div onClick={() => showEntry(entry)} key={entry._id}>
                         <p>{entry.date}</p>
                         <p>{entry.goal}</p>
