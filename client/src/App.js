@@ -13,101 +13,106 @@ import { useEffect, useState } from 'react'
 
 
 function App() {
-const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([])
+  const [newUser, setNewUser] = useState({
+    name: '',
+    email: '',
+    password: ''
+  })
 
-const [userEntries, setUserEntries] = useState([])
-const [selectedEntry, setSelectedEntry] = useState({})
-const [newUserEntry, setNewUserEntry] = useState({
-  date: '',
-  goal: '',
-  toDo: '',
-  message: '',
-})
+  const [userEntries, setUserEntries] = useState([])
+  const [selectedEntry, setSelectedEntry] = useState({})
+  const [newUserEntry, setNewUserEntry] = useState({
+    date: '',
+    goal: '',
+    toDo: '',
+    message: '',
+  })
 
 
 
-useEffect (() => {
-  async function getUserEntries() {
-    try {
-      let res = await axios.get('http://localhost:3001/entry')
-      setUserEntries(res.data)
-    } catch (error) {
-      console.log(error)
+  useEffect (() => {
+    async function getUserEntries() {
+      try {
+        let res = await axios.get('http://localhost:3001/entry')
+        setUserEntries(res.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }
 
-  getUserEntries()
-  
-  async function getAllUsers() {
-    let response = await axios.get('http://localhost:3001/user')
-    setUsers(response.data)
+    getUserEntries()
     
+    async function getAllUsers() {
+      let response = await axios.get('http://localhost:3001/user')
+      setUsers(response.data)
+      
+    }
+
+    getAllUsers()
+
+  },[])
+
+  const addNewUser = async (e) => {
+    e.preventDefault()
   }
 
-getAllUsers()
+  const addNewUserEntry = async (e) => {
+    e.preventDefault()
+    const currentEntry = userEntries
+    const createEntry = {
+      ...newUserEntry,
+      date: newUserEntry.date,
+      goal: newUserEntry.goal,
+      toDo: newUserEntry.toDo,
+      message: newUserEntry.message
+    }
 
-},[])
-
-const addNewUser = async (e) => {
-  e.preventDefault()
-}
-
-const addNewUserEntry = async (e) => {
-  e.preventDefault()
-  const currentEntry = userEntries
-  const createEntry = {
-    ...newUserEntry,
-    date: newUserEntry.date,
-    goal: newUserEntry.goal,
-    toDo: newUserEntry.toDo,
-    message: newUserEntry.message
+    let res = await axios.post('http://localhost:3001/entry/new', createEntry)
+    currentEntry.push(res.data)
+    setUserEntries(currentEntry)
+    setNewUserEntry({date: '', goal: '', toDo: '', message: ''})
   }
 
-  let res = await axios.post('http://localhost:3001/entry/new', createEntry)
-  currentEntry.push(res.data)
-  setUserEntries(currentEntry)
-  setNewUserEntry({date: '', goal: '', toDo: '', message: ''})
-}
-
-const handleChange = (e) => {
-  setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
-}
-
-const updateUserEntry = async () => {
-  const updateEntry = {
-    ...selectedEntry
+  const handleChange = (e) => {
+    setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
   }
 
-  let updatedEntry = await axios({
-    url: `http://localhost:3001/entry/${updateEntry._id}/update`,
-    method: 'put',
-    data: updateEntry
-  })
+  const updateUserEntry = async () => {
+    const updateEntry = {
+      ...selectedEntry
+    }
 
-  const toChangeEntry = userEntries.find((entry) => entry._id === updatedEntry.data._id)
+    let updatedEntry = await axios({
+      url: `http://localhost:3001/entry/${updateEntry._id}/update`,
+      method: 'put',
+      data: updateEntry
+    })
 
-  userEntries.splice(toChangeEntry, 1, updateEntry)
+    const toChangeEntry = userEntries.find((entry) => entry._id === updatedEntry.data._id)
 
-  setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
-}
+    userEntries.splice(toChangeEntry, 1, updateEntry)
 
-const updatehandleChange = (e) => {
-  setSelectedEntry({...selectedEntry, [e.target.name]: e.target.value })
-}
+    setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
+  }
 
-const deleteEntry = async () => {
-  const toDelete = selectedEntry
+  const updatehandleChange = (e) => {
+    setSelectedEntry({...selectedEntry, [e.target.name]: e.target.value })
+  }
 
- let deletedEntry = await axios({
-    url: `http://localhost:3001/entry/${toDelete._id}`,
-    method: 'delete',
-    data: toDelete
-  })
-  const toDeleteEntry = userEntries.find((entry) => entry._id === deletedEntry.data)
-  userEntries.splice(toDeleteEntry, 1)
-  
-  setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
-}
+  const deleteEntry = async () => {
+    const toDelete = selectedEntry
+
+    let deletedEntry = await axios({
+      url: `http://localhost:3001/entry/${toDelete._id}`,
+      method: 'delete',
+      data: toDelete
+    })
+    const toDeleteEntry = userEntries.find((entry) => entry._id === deletedEntry.data)
+    userEntries.splice(toDeleteEntry, 1)
+    
+    setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
+  }
 
   return (
     <div className="App">
