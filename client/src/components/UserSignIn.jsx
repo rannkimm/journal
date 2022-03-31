@@ -1,10 +1,14 @@
 import Nav from './Nav'
+import { useNavigate } from 'react-router-dom'
 
 const UserSignin = (props) => {
+
+    let navigate = useNavigate()
 
     const submitNewUser = (e) => {
         e.preventDefault()
         props.addNewUser(e)
+        navigate('/userhome')
         
     }
 

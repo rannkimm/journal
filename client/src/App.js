@@ -1,8 +1,9 @@
 import './App.css';
 import axios from 'axios';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, } from "react-router-dom";
 import Home from './components/Home';
 import Entry from './components/Entry';
+import WelcomeUser from './components/WelcomeUser';
 import PostComment from './components/PostComment';
 import UserLogin from './components/UserLogin';
 import UserSignin from './components/UserSignIn'
@@ -10,6 +11,7 @@ import SelectedEntry from './components/SelectedEntry';
 import UserEntry from './components/UserEntry';
 import UpdateEntry from './components/UpdateEntry';
 import { useEffect, useState } from 'react'
+
 
 
 function App() {
@@ -20,10 +22,16 @@ function App() {
     password: ''
   })
   const [currentUser, setCurrentUser] = useState ({})
-
+  const [loginUser, setLoginUser] = useState ({
+    name: '',
+    email: '',
+    password: ''
+  })
+  const [entries, setEntries] = useState([])
   const [userEntries, setUserEntries] = useState([])
   const [selectedEntry, setSelectedEntry] = useState({})
   const [newUserEntry, setNewUserEntry] = useState({
+    user: '',
     date: '',
     goal: '',
     toDo: '',
@@ -33,22 +41,30 @@ function App() {
 
 
   useEffect (() => {
-    async function getUserEntries() {
+
+    async function getEntries() {
       try {
         let res = await axios.get('http://localhost:3001/entry')
-        setUserEntries(res.data)
+        setEntries(res.data)
       } catch (error) {
         console.log(error)
       }
     }
-    getUserEntries()
     
     async function getAllUsers() {
+      try {
       let response = await axios.get('http://localhost:3001/user')
       setUsers(response.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
+
+    getEntries()
     getAllUsers()
+    
   },[])
+
 
   const addNewUser = async (e) => {
     e.preventDefault()
@@ -74,11 +90,51 @@ function App() {
     setNewUser({...newUser, [e.target.name]: e.target.value})
   }
 
+  const getExistUser = async (e) => {
+    e.preventDefault()
+    // const getusers = users
+    const existUser = {
+      ...loginUser,
+      user: loginUser.user,
+      name: loginUser.name,
+      email: loginUser.email,
+      password: loginUser.password
+    }
+
+    let res = await axios.get('http://localhost:3001/user/login')
+    let findUser = res.data
+    if (findUser.name === existUser.name && findUser.email === existUser.email && findUser.password === existUser.password) {
+      setCurrentUser(findUser)
+    } else if(findUser.name === existUser.name || findUser.email === existUser.email || findUser.password === existUser.password) {
+      alert("Not an existing user! Try again!")
+    }
+  }
+
+  const loginHandleChange = (e) => {
+    setLoginUser({...loginUser, [e.target.name]: e.target.value })
+  }
+
+ const getUserEntries = async (e) => {
+    try {
+      let res = await axios({
+        url: `http://localhost:3001/entry/${currentUser._id}`,
+        method: 'get',
+        data: {user: currentUser._id}
+      })
+      setUserEntries(res.data)
+      console.log(userEntries)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   const addNewUserEntry = async (e) => {
     e.preventDefault()
     const currentEntry = userEntries
     const createEntry = {
       ...newUserEntry,
+      user: currentUser._id,
       date: newUserEntry.date,
       goal: newUserEntry.goal,
       toDo: newUserEntry.toDo,
@@ -88,7 +144,7 @@ function App() {
     let res = await axios.post('http://localhost:3001/entry/new', createEntry)
     currentEntry.push(res.data)
     setUserEntries(currentEntry)
-    setNewUserEntry({date: '', goal: '', toDo: '', message: ''})
+    setNewUserEntry({user: '', date: '', goal: '', toDo: '', message: ''})
   }
 
   const handleChange = (e) => {
@@ -138,12 +194,13 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentEntry={currentUser}/>} />
-          <Route path="/userentries" element={<UserEntry userEntries={userEntries}/>} />
+          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
+          <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentUser={currentUser} />} />
+          <Route path="/userhome" element={<WelcomeUser currentUser={currentUser}/>} />
+          <Route path="/userentries" element={<UserEntry userEntries={userEntries} currentUser={currentUser}  getUserEntries={getUserEntries} />} />
           <Route path="/userentries/:id" element={<SelectedEntry userEntries={userEntries} setSelectedEntry={setSelectedEntry} selectedEntry={selectedEntry} deleteEntry={deleteEntry}/>} />
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
-          <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry}/>} />
+          <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry} currentUser={currentUser} />} />
           <Route path="/postcomment" element={<PostComment />} />
         </Routes>
       </main>

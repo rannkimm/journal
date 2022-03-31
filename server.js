@@ -31,9 +31,10 @@ app.post("/user/signin", async (req, res) => {
   await res.json(newUser)
 })
 
-
-
-
+app.get("/user/login", async (req, res) => {
+  const existUser = await User.findOne({})
+  res.json(existUser)
+})
 
 
 
@@ -42,6 +43,10 @@ app.get("/entry", async (req, res) => {
   res.json(entries)
 })
 
+app.get("/entry/:user", async (req, res) => {
+  const entries = await Entry.find({user:req.params.user})
+  res.json(entries)
+})
 
 app.put("/entry/:id/update", async (req, res) => {
   console.log(req.body)

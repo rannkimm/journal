@@ -1,13 +1,20 @@
 import Nav2 from './Nav2'
+import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 
 const UserEntry = (props) => {
+
+
+useEffect (() => {
+ props.getUserEntries()
+}, [])
 
 let navigate = useNavigate()
 
 const showEntry = (entry) => {
     navigate(`${entry._id}`)
 }
+
 
 return (
     <div>
