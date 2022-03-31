@@ -24,7 +24,7 @@ return (
                 <div onClick={() => showEntry(entry)} key={entry._id}>
                         <p>{entry.date}</p>
                         <p>{entry.goal}</p>
-                        <p>{entry.todo}</p>
+                        <p>{entry.toDo}</p>
                         <p>{entry.message}</p>
                 </div>
             ))}

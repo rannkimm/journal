@@ -8,7 +8,12 @@ const UserLogin = (props) => {
     const submitExistUser = (e) => {
         e.preventDefault()
         props.getExistUser(e)
-        navigate('/userhome')
+        console.log('all users', props.users)
+        console.log('login user', props.findUser)
+        if (props.users.includes(props.findUser) === true) {
+            console.log('exists')
+        }
+        // navigate('/userhome')
     }
 
     return (

@@ -10,6 +10,7 @@ import UserSignin from './components/UserSignIn'
 import SelectedEntry from './components/SelectedEntry';
 import UserEntry from './components/UserEntry';
 import UpdateEntry from './components/UpdateEntry';
+import Nav2 from './components/Nav2';
 import { useEffect, useState } from 'react'
 
 
@@ -27,6 +28,7 @@ function App() {
     email: '',
     password: ''
   })
+  const [findUser, setFindUser] = useState ({})
   const [entries, setEntries] = useState([])
   const [userEntries, setUserEntries] = useState([])
   const [selectedEntry, setSelectedEntry] = useState({})
@@ -92,7 +94,6 @@ function App() {
 
   const getExistUser = async (e) => {
     e.preventDefault()
-    // const getusers = users
     const existUser = {
       ...loginUser,
       user: loginUser.user,
@@ -102,10 +103,11 @@ function App() {
     }
 
     let res = await axios.get('http://localhost:3001/user/login')
-    let findUser = res.data
-    if (findUser.name === existUser.name && findUser.email === existUser.email && findUser.password === existUser.password) {
+    let foundUser = res.data
+    setFindUser(foundUser)
+    if (foundUser.name === existUser.name && foundUser.email === existUser.email && foundUser.password === existUser.password) {
       setCurrentUser(findUser)
-    } else if(findUser.name === existUser.name || findUser.email === existUser.email || findUser.password === existUser.password) {
+    } else if(foundUser.name === existUser.name || foundUser.email === existUser.email || foundUser.password === existUser.password) {
       alert("Not an existing user! Try again!")
     }
   }
@@ -193,8 +195,8 @@ function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
+          <Route path="/" element={<Home currentUser={currentUser} />} />
+          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} users={users} findUser={findUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
           <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentUser={currentUser} />} />
           <Route path="/userhome" element={<WelcomeUser currentUser={currentUser}/>} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries} currentUser={currentUser}  getUserEntries={getUserEntries} />} />
@@ -202,6 +204,7 @@ function App() {
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
           <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry} currentUser={currentUser} />} />
           <Route path="/postcomment" element={<PostComment />} />
+          <Route path='/nav2' element={<Nav2 currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
         </Routes>
       </main>
 
