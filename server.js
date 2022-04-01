@@ -31,7 +31,10 @@ app.post("/user/signin", async (req, res) => {
   await res.json(newUser)
 })
 
-
+app.get("/user/login/:username", async (req, res) => {
+  const existUser = await User.find({username:req.params.username})
+  res.json(existUser)
+})
 
 app.delete('/user/:id', async (req, res) => {
   await User.findByIdAndDelete(req.params.id)
