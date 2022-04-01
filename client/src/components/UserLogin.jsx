@@ -1,4 +1,5 @@
 //////////// IMPORT /////////////
+import '../UserLogin.css'
 import Nav from './Nav'
 
 ////////// USERLOGIN COMPONENT FUNCTION //////////////
@@ -14,10 +15,11 @@ const UserLogin = (props) => {
     return (
         <div>
             <Nav />
-            <div>
+            <div className='login'>
+                <h1>Login</h1>
                 <form onSubmit={submitExistUser}>
-                    <input type='text' value={props.loginUser.username} onChange={props.loginHandleChange} name={'username'} placeholder={'username'}/>
-                    <input type='password' value={props.loginUser.password} onChange={props.loginHandleChange} name={'password'} placeholder={'password'}/>
+                    <input className='username' type='text' value={props.loginUser.username} onChange={props.loginHandleChange} name={'username'} placeholder={'username'}/>
+                    <input className='password' type='password' value={props.loginUser.password} onChange={props.loginHandleChange} name={'password'} placeholder={'password'}/>
                     <button>Submit</button>
                 </form>
             </div>

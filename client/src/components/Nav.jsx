@@ -11,10 +11,10 @@ const Nav = (props) => {
     
     return (
         <header>
-            <nav>
-                <Link to='/'>Home</Link>
-                <Link onClick={resetUser} to='/userlogin'>Login</Link>
-                <Link onClick={resetUser} to='/usersignin'>Signin</Link>
+            <nav id="nav">
+                <Link id="navText" to='/'>Home</Link>
+                <Link id="navText" onClick={resetUser} to='/userlogin'>Login</Link>
+                <Link id="navText" onClick={resetUser} to='/usersignin'>Signin</Link>
             </nav>
         </header>
     )
