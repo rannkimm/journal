@@ -42,6 +42,7 @@ function App() {
   })
 
   let navigate = useNavigate()
+  let loginNavigate = useNavigate()
 
   useEffect (() => {
 
@@ -106,33 +107,26 @@ function App() {
 
   const getExistUser = async (e) => {
     e.preventDefault()
+    let currentUsersList = users
     const existUser = {
       ...loginUser,
       username: loginUser.username,
       password: loginUser.password
     }
-    try {
-      let res = await axios({
-        url: `http://localhost:3001/user/login/${existUser.username}`,
-        method: 'get',
-        data: {username: existUser.username}
-      })
-      setFindUser(res.data)
-    } catch (error) {
-      console.log(error)
+    console.log(currentUsersList.find(users => users.password === existUser.password))
+    if(currentUsersList.find(users => users.username === existUser.username) === undefined || currentUsersList.find(users => users.password === existUser.password) === undefined) {
+      alert('That is not an existing username or password. Try again!')
+      setLoginUser({username:'', password:''})
+    } else {
+        let res = await axios({
+          url: `http://localhost:3001/user/login/${existUser.username}/${existUser.password}`,
+          method: 'get',
+          data: {username: existUser.username, password: existUser.password}
+        })
+        console.log(res.data)
+        await setCurrentUser(res.data)
+        loginNavigate('/userhome')
     }
-    console.log(findUser)
-    console.log(findUser.username)
-    console.log(findUser.password)
-    console.log(loginUser.username)
-    console.log(loginUser.password)
-    // if(findUser.username === loginUser.username && findUser.password === loginUser.password) {
-    //   setCurrentUser(findUser)
-    //   navigate('/userhome')
-    // } else if(findUser.username !== loginUser.username || findUser.password !== loginUser.password) {
-    //   alert('That is not an existing username or password. Try again!')
-    //   setLoginUser({username:'', password:''})
-    // }
   }
 
   const loginHandleChange = (e) => {
