@@ -1,3 +1,4 @@
+///////////// IMPORT ////////////
 import './App.css';
 import axios from 'axios';
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -14,9 +15,12 @@ import Nav from './components/Nav';
 import Nav2 from './components/Nav2';
 import { useEffect, useState } from 'react'
 
-
-
+///////////// APP FUNCTION /////////////
 function App() {
+
+  ////////////////// SETTING STATE //////////////////
+
+  // SET STATE FOR USERS //
   const [users, setUsers] = useState([])
   const [newUser, setNewUser] = useState({
     username: '',
@@ -30,7 +34,8 @@ function App() {
     username: '',
     password: ''
   })
-  const [findUser, setFindUser] = useState ({})
+
+  // SET STATE FOR ENTRIES //
   const [entries, setEntries] = useState([])
   const [userEntries, setUserEntries] = useState([])
   const [selectedEntry, setSelectedEntry] = useState({})
@@ -42,11 +47,15 @@ function App() {
     message: '',
   })
 
+  //////// VARIABLES DEFINING USENAVIGATE ////////
   let navigate = useNavigate()
   let loginNavigate = useNavigate()
 
+
+  ////// USEEFFECT //////
   useEffect (() => {
 
+    /// FUNCTION TO GET ALL ENTRIES ///
     async function getEntries() {
       try {
         let res = await axios.get('http://localhost:3001/entry')
@@ -56,6 +65,7 @@ function App() {
       }
     }
     
+    /// FUNCTION TO GET ALL USERS ///
     async function getAllUsers() {
       try {
       let response = await axios.get('http://localhost:3001/user')
@@ -71,7 +81,7 @@ function App() {
   },[])
 
   
-
+  /////////////// FUNCTIONS FOR USERSIGNIN COMPONENT ///////////////
   const addNewUser = async (e) => {
     e.preventDefault()
     const currentUsersList = users
@@ -110,6 +120,7 @@ function App() {
     setNewUser({...newUser, [e.target.name]: e.target.value})
   }
 
+  /////////////// FUNCTIONS FOR USERLOGIN COMPONENT ///////////////
   const getExistUser = async (e) => {
     e.preventDefault()
     let currentUsersList = users
@@ -138,7 +149,8 @@ function App() {
     setLoginUser({...loginUser, [e.target.name]: e.target.value })
   }
 
- const getUserEntries = async (e) => {
+  /////////////// FUNCTIONS FOR USERENTRY COMPONENT ///////////////
+  const getUserEntries = async (e) => {
     try {
       let res = await axios({
         url: `http://localhost:3001/entry/${currentUser._id}`,
@@ -152,7 +164,7 @@ function App() {
     }
   }
 
-
+  /////////////// FUNCTIONS FOR ENTRY COMPONENT ///////////////
   const addNewUserEntry = async (e) => {
     e.preventDefault()
     const currentEntry = userEntries
@@ -175,6 +187,7 @@ function App() {
     setNewUserEntry({...newUserEntry, [e.target.name]: e.target.value })
   }
 
+  /////////////// FUNCTIONS FOR UPDATEENTRY COMPONENT ///////////////
   const updateUserEntry = async () => {
     const updateEntry = {
       ...selectedEntry
@@ -187,9 +200,7 @@ function App() {
     })
 
     const toChangeEntry = userEntries.find((entry) => entry._id === updatedEntry.data._id)
-
     userEntries.splice(toChangeEntry, 1, updateEntry)
-
     setSelectedEntry({date: '', goal: '', toDo: '', message: ''})
   }
 
@@ -197,6 +208,7 @@ function App() {
     setSelectedEntry({...selectedEntry, [e.target.name]: e.target.value })
   }
 
+  /////////////// FUNCTIONS FOR SELECTEDENTRY COMPONENT ===> DELETE BUTTON ///////////////
   const deleteEntry = async () => {
     const toDelete = selectedEntry
 
@@ -213,7 +225,6 @@ function App() {
 
   return (
     <div className="App">
-
 
       <main>
         <Routes>
