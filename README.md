@@ -2,6 +2,7 @@
 ## Date: 03/26/22
 ## By: Ran Kim
 ****
+![homepage](journal.png)
 ### Description
 #### With everyday passing by in a blink of an eye, setting daily goals to better yourself, and cherishing small moments in life can be hard. Create your daily to do lists, set your goals, and record the highlights of your day with JOURNAL.
 ****
@@ -22,7 +23,11 @@
 ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white) |
 ****
 ### Using the website
-#### First sign in. Log your daily journal entries and connect with others in the connect tab.
+![signup](signup.png)
+#### Signup or login! 
+![entry](entry.png)
+#### Record your daily entries.
+[Journal](https://pacific-island-05171.herokuapp.com/)
 ****
 ### Credits
 - https://Stackoverflow.com/
@@ -36,4 +41,4 @@
 
 ****
 ### Links
-[Trello](https://trello.com/b/WSZWHz5i/journal) | [Website](https://pacific-island-05171.herokuapp.com/)
+[Trello](https://trello.com/b/WSZWHz5i/journal) | [Journal](https://pacific-island-05171.herokuapp.com/)
