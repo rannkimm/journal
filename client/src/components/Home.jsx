@@ -1,6 +1,6 @@
 import Nav from './Nav'
 
-const Home = () => {
+const Home = (props) => {
 
 
     return (

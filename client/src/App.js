@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import { Route, Routes, } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from './components/Home';
 import Entry from './components/Entry';
 import WelcomeUser from './components/WelcomeUser';
@@ -10,6 +10,7 @@ import UserSignin from './components/UserSignIn'
 import SelectedEntry from './components/SelectedEntry';
 import UserEntry from './components/UserEntry';
 import UpdateEntry from './components/UpdateEntry';
+import Nav from './components/Nav';
 import Nav2 from './components/Nav2';
 import { useEffect, useState } from 'react'
 
@@ -42,7 +43,7 @@ function App() {
     message: '',
   })
 
-
+  let navigate = useNavigate()
 
   useEffect (() => {
 
@@ -69,6 +70,7 @@ function App() {
     
   },[])
 
+  
 
   const addNewUser = async (e) => {
     e.preventDefault()
@@ -79,16 +81,25 @@ function App() {
       name: newUser.name,
       email: newUser.email,
       password: newUser.password
+      
     }
-
-    let res = await axios.post('http://localhost:3001/user/signin', createUser)
-    let createdUser = res.data
-    currentUsersList.push(createdUser)
-    setUsers(currentUsersList)
-    setNewUser({username:'', name: '', email: '', password: ''})
-    console.log('list of users',users)
-    setCurrentUser(createdUser)
-    console.log('this is created user', createdUser)
+    
+     if(currentUsersList.find(user => user.username === createUser.username) === undefined) {
+        let res = await axios.post('http://localhost:3001/user/signin', createUser)
+        let createdUser = res.data
+        console.log(createdUser)
+        currentUsersList.push(createdUser)
+        setUsers(currentUsersList)
+        setNewUser({username:'', name: '', email: '', password: ''})
+        console.log('list of users',users)
+        setCurrentUser(createdUser)
+        console.log('this is created user', createdUser)
+        navigate('/userhome')
+        return
+      } else {
+        alert('Existing username! Try a different username!')
+        createUser = {username: '', name: '', email: '', password: ''}
+      }
   }
 
   const userHandleChange = (e) => {
@@ -211,7 +222,8 @@ function App() {
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
           <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry} currentUser={currentUser} />} />
           <Route path="/postcomment" element={<PostComment />} />
-          {/* <Route path='/nav2' element={<Nav2 currentUser={currentUser} setCurrentUser={setCurrentUser}/>} /> */}
+          <Route path='/nav' element={<Nav currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+          <Route path='/nav2' element={<Nav2 currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
         </Routes>
       </main>
 
