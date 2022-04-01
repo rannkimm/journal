@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom"
 
 //////////// USERENTRY COMPONENT FUNCTION ///////////////////
 const UserEntry = (props) => {
-
+    console.log(props)
     //////// USEFFECT ///////
     useEffect (() => {
     props.getUserEntries()
-    }, [])
+    })
 
     ///// VARIABLE DEFINING USENAVIGATE /////
     let navigate = useNavigate()

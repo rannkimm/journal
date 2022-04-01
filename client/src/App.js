@@ -152,6 +152,7 @@ function App() {
   /////////////// FUNCTIONS FOR USERENTRY COMPONENT ///////////////
   const getUserEntries = async (e) => {
     try {
+      console.log("in get user entries")
       let res = await axios({
         url: `http://localhost:3001/entry/${currentUser._id}`,
         method: 'get',

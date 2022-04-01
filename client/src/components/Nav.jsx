@@ -14,7 +14,7 @@ const Nav = (props) => {
             <nav id="nav">
                 <Link id="navText" to='/'>Home</Link>
                 <Link id="navText" onClick={resetUser} to='/userlogin'>Login</Link>
-                <Link id="navText" onClick={resetUser} to='/usersignin'>Signin</Link>
+                <Link id="navText" onClick={resetUser} to='/usersignin'>Signup</Link>
             </nav>
         </header>
     )
