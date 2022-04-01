@@ -13,13 +13,15 @@ const main = async () => {
         username: 'rannio',
         name: 'Ran Kim',
         email: 'ranfakeemail@gmail.com',
-        password: '123123rankim'
+        password: '123123rankim',
+        confirmPassword: '123123rankim'
     },
     {
         username: 'sannkimm',
         name: 'San Kim',
         email: 'sanfakeemail@gmail.com',
-        password: '123123sankim'
+        password: '123123sankim',
+        confirmPassword: '123123sankim'
     }
   ]
     

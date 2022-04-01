@@ -22,7 +22,8 @@ function App() {
     username: '',
     name: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword:''
   })
   const [currentUser, setCurrentUser] = useState ({})
   const [loginUser, setLoginUser] = useState ({
@@ -79,17 +80,18 @@ function App() {
       username: newUser.username,
       name: newUser.name,
       email: newUser.email,
-      password: newUser.password
+      password: newUser.password,
+      confirmPassword: newUser.confirmPassword
       
     }
     
-     if(currentUsersList.find(user => user.username === createUser.username) === undefined) {
+     if(currentUsersList.find(user => user.username === createUser.username) === undefined && createUser.password === createUser.confirmPassword) {
         let res = await axios.post('http://localhost:3001/user/signin', createUser)
         let createdUser = res.data
         console.log(createdUser)
         currentUsersList.push(createdUser)
         setUsers(currentUsersList)
-        setNewUser({username:'', name: '', email: '', password: ''})
+        setNewUser({username:'', name: '', email: '', password: '', confirmPassword:''})
         console.log('list of users',users)
         setCurrentUser(createdUser)
         console.log('this is created user', createdUser)
@@ -97,7 +99,7 @@ function App() {
         return
       } else {
         alert('Existing username! Try a different username!')
-        createUser = {username: '', name: '', email: '', password: ''}
+        createUser = {username: '', name: '', email: '', password: '', confirmPassword:''}
       }
   }
 

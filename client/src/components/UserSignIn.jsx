@@ -24,6 +24,7 @@ const UserSignin = (props) => {
                     <input type='text' value={props.newUser.name} onChange={props.userHandleChange} name={'name'} placeholder={'name'}/>
                     <input type='text' value={props.newUser.email} onChange={props.userHandleChange} name={'email'} placeholder={'email'}/>
                     <input type='password' value={props.newUser.password} onChange={props.userHandleChange} name={'password'} placeholder={'password'}/>
+                    <input type='password' value={props.newUser.confirmPassword} onChange={props.userHandleChange} name={'confirmPassword'} placeholder={'confirm password'}/>
                     <button>Submit</button>
                 </form>
             </div>

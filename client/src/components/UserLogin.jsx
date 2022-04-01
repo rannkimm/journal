@@ -20,7 +20,7 @@ const UserLogin = (props) => {
             <div>
                 <form onSubmit={submitExistUser}>
                     <input type='text' value={props.loginUser.username} onChange={props.loginHandleChange} name={'username'} placeholder={'username'}/>
-                    <input type='text' value={props.loginUser.password} onChange={props.loginHandleChange} name={'password'} placeholder={'password'}/>
+                    <input type='password' value={props.loginUser.password} onChange={props.loginHandleChange} name={'password'} placeholder={'password'}/>
                     <button>Submit</button>
                 </form>
             </div>
