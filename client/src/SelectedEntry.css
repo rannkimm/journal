@@ -1,0 +1,39 @@
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-family: 'Coming Soon', cursive;
+    font-weight: bold;
+    font-size: 15pt;
+    border-radius: 10px;
+}
+
+button:hover {
+    width: 310px;
+    height: 45px;
+}
+
+.selectedDiv {
+    display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    height: 400px;
+    margin: auto;
+    gap: 0px 10px;
+    grid-template-areas: 
+    "date message"
+    "goal message"
+    "toDo message"
+    "toDo message"
+    "toDo message"
+    "toDo message"; 
+}
+.date { grid-area: date; }
+.goal { grid-area: goal; }
+.toDo { grid-area: toDo; }
+.message { grid-area: message; }

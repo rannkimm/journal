@@ -1,4 +1,5 @@
 ////////////// IMPORT ////////////////
+import '../Entry.css'
 import { useNavigate } from "react-router-dom"
 
 /////////// UPDATEENTRY COMPONENT FUNCTION ///////////
@@ -16,13 +17,15 @@ const UpdateEntry = (props) => {
 
     return (
         <div>
-            this page is connected
+            <div className="title">Edit your entry...</div>
             <form onSubmit={submitData}>
-                <input type='text' value={props.selectedEntry.date} onChange={props.handleChange} name={'date'} />
-                <input type='text' value={props.selectedEntry.goal} onChange={props.handleChange} name={'goal'} />
-                <input type='text' value={props.selectedEntry.toDo} onChange={props.handleChange} name={'toDo'} />
-                <input type='text' value={props.selectedEntry.message} onChange={props.handleChange} name={'message'} />
                 <button>Submit</button>
+                <div className="inputDiv">
+                    <input className="date" type='text' value={props.selectedEntry.date} onChange={props.handleChange} name={'date'} />
+                    <input className="goal" type='text' value={props.selectedEntry.goal} onChange={props.handleChange} name={'goal'} />
+                    <input className="toDo" type='text' value={props.selectedEntry.toDo} onChange={props.handleChange} name={'toDo'} />
+                    <input className="message" type='text' value={props.selectedEntry.message} onChange={props.handleChange} name={'message'} />
+                </div>
             </form>
         </div>
     )
