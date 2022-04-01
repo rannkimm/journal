@@ -6,7 +6,7 @@ const { User } = require("../models");
 // Connect to the database
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-/////////////// CREATED REVIEW SEED TO ADD TO REVIEW COLLECTION /////////////////////
+/////////////// CREATED USER SEED TO ADD TO USER COLLECTION /////////////////////
 const main = async () => {
   const users = [
     {
