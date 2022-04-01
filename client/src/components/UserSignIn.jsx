@@ -1,4 +1,5 @@
 ///////////// IMPORT ////////////
+import '../UserSignIn.css'
 import Nav from './Nav'
 
 //////////// USERSIGNIN COMPONENT FUNCTION /////////////
@@ -13,6 +14,7 @@ const UserSignin = (props) => {
     return (
         <div>
             <Nav />
+            <h1>Sign In</h1>
             <div>
                 <form onSubmit={submitNewUser}>
                     <input type='text' value={props.newUser.username} onChange={props.userHandleChange} name={'username'} placeholder={'username'}/>
