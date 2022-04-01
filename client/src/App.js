@@ -97,6 +97,9 @@ function App() {
         console.log('this is created user', createdUser)
         navigate('/userhome')
         return
+      } else if(createUser.password !== createUser.confirmPassword) {
+        alert('Your password does not match! Try again!')
+        createUser = {username: '', name: '', email: '', password: '', confirmPassword:''}
       } else {
         alert('Existing username! Try a different username!')
         createUser = {username: '', name: '', email: '', password: '', confirmPassword:''}
