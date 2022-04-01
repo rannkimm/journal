@@ -31,8 +31,8 @@ app.post("/user/signin", async (req, res) => {
   await res.json(newUser)
 })
 
-app.get("/user/login/:username", async (req, res) => {
-  const existUser = await User.find({username:req.params.username})
+app.get("/user/login/:username/:password", async (req, res) => {
+  const existUser = await User.find({username:req.params.username, password:req.params.password})
   res.json(existUser)
 })
 

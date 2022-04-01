@@ -27,8 +27,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState ({})
   const [loginUser, setLoginUser] = useState ({
     username: '',
-    name: '',
-    email: '',
     password: ''
   })
   const [findUser, setFindUser] = useState ({})
@@ -111,22 +109,29 @@ function App() {
     const existUser = {
       ...loginUser,
       username: loginUser.username,
-      name: loginUser.name,
-      email: loginUser.email,
       password: loginUser.password
     }
-
-    let res = await axios.get('http://localhost:3001/user/login')
-    let foundUser = res.data
-    setFindUser(foundUser)
-    console.log(res.data)
-
-    // switch (foundUser.name)
-    
-    // if (foundUser.name === existUser.name && foundUser.email === existUser.email &&  foundUser.password === existUser.password) {
+    try {
+      let res = await axios({
+        url: `http://localhost:3001/user/login/${existUser.username}`,
+        method: 'get',
+        data: {username: existUser.username}
+      })
+      setFindUser(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(findUser)
+    console.log(findUser.username)
+    console.log(findUser.password)
+    console.log(loginUser.username)
+    console.log(loginUser.password)
+    // if(findUser.username === loginUser.username && findUser.password === loginUser.password) {
     //   setCurrentUser(findUser)
-    // } else if(foundUser.name === existUser.name || foundUser.email === existUser.email || foundUser.password === existUser.password) {
-    //   alert("Not an existing user! Try again!")
+    //   navigate('/userhome')
+    // } else if(findUser.username !== loginUser.username || findUser.password !== loginUser.password) {
+    //   alert('That is not an existing username or password. Try again!')
+    //   setLoginUser({username:'', password:''})
     // }
   }
 
@@ -214,7 +219,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} users={users} findUser={findUser} currentUser={currentUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
+          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} users={users} currentUser={currentUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
           <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentUser={currentUser} />} />
           <Route path="/userhome" element={<WelcomeUser currentUser={currentUser}/>} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries} currentUser={currentUser}  getUserEntries={getUserEntries} />} />
