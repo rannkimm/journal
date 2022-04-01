@@ -1,0 +1,66 @@
+.title {
+    font-family: 'Coming Soon', cursive;
+    font-size: 40pt;
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-family: 'Coming Soon', cursive;
+    font-weight: bold;
+    font-size: 15pt;
+    border-radius: 10px;
+}
+
+button:hover {
+    width: 310px;
+    height: 45px;
+}
+
+.inputDiv {
+    display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    height: 400px;
+    margin: auto;
+    gap: 0px 10px;
+    grid-template-areas: 
+    "date message"
+    "goal message"
+    "toDo message"
+    "toDo message"
+    "toDo message"
+    "toDo message"; 
+}
+.date { grid-area: date; }
+.goal { grid-area: goal; }
+.toDo { grid-area: toDo; }
+.message { grid-area: message; }
+
+input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-family: 'Coming Soon', cursive;
+    font-weight: bold;
+    font-size: 15pt;
+    border-radius: 10px;
+}
+
+.toDo {
+    height: 325px;
+}
+
+.message {
+    height: 500px;
+    width: 400px;
+}
+
+

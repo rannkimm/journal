@@ -1,0 +1,22 @@
+.welcome {
+    margin-top: 100px;
+    font-family: 'Coming Soon', cursive;
+    font-size: 60pt;
+}
+
+.info {
+    display: flex;
+}
+
+p {
+    margin: auto;
+    margin-top: 100px;
+}
+
+.view {
+    margin-right: 30px;
+}
+
+.create {
+    margin-left: 30px;
+}
