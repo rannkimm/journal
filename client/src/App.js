@@ -98,13 +98,10 @@ function App() {
      if(currentUsersList.find(user => user.username === createUser.username) === undefined && createUser.password === createUser.confirmPassword) {
         let res = await axios.post('http://localhost:3001/user/signin', createUser)
         let createdUser = res.data
-        console.log(createdUser)
         currentUsersList.push(createdUser)
         setUsers(currentUsersList)
         setNewUser({username:'', name: '', email: '', password: '', confirmPassword:''})
-        console.log('list of users',users)
         setCurrentUser(createdUser)
-        console.log('this is created user', createdUser)
         navigate('/userhome')
         return
       } else if(createUser.password !== createUser.confirmPassword) {
@@ -129,7 +126,6 @@ function App() {
       username: loginUser.username,
       password: loginUser.password
     }
-    console.log(currentUsersList.find(users => users.password === existUser.password))
     if(currentUsersList.find(users => users.username === existUser.username) === undefined || currentUsersList.find(users => users.password === existUser.password) === undefined) {
       alert('That is not an existing username or password. Try again!')
       setLoginUser({username:'', password:''})
@@ -139,7 +135,6 @@ function App() {
           method: 'get',
           data: {username: existUser.username, password: existUser.password}
         })
-        console.log(res.data)
         await setCurrentUser(res.data)
         loginNavigate('/userhome')
     }
@@ -159,7 +154,6 @@ function App() {
         data: {user: currentUser._id}
       })
       setUserEntries(res.data)
-      console.log(userEntries)
     } catch (error) {
       console.log(error)
     }
