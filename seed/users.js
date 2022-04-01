@@ -10,11 +10,13 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 const main = async () => {
   const users = [
     {
+        username: 'rannio',
         name: 'Ran Kim',
         email: 'ranfakeemail@gmail.com',
         password: '123123rankim'
     },
     {
+        username: 'sannkimm',
         name: 'San Kim',
         email: 'sanfakeemail@gmail.com',
         password: '123123sankim'

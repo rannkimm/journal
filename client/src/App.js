@@ -18,12 +18,14 @@ import { useEffect, useState } from 'react'
 function App() {
   const [users, setUsers] = useState([])
   const [newUser, setNewUser] = useState({
+    username: '',
     name: '',
     email: '',
     password: ''
   })
   const [currentUser, setCurrentUser] = useState ({})
   const [loginUser, setLoginUser] = useState ({
+    username: '',
     name: '',
     email: '',
     password: ''
@@ -73,6 +75,7 @@ function App() {
     const currentUsersList = users
     const createUser = {
       ...newUser,
+      username: newUser.username,
       name: newUser.name,
       email: newUser.email,
       password: newUser.password
@@ -82,7 +85,7 @@ function App() {
     let createdUser = res.data
     currentUsersList.push(createdUser)
     setUsers(currentUsersList)
-    setNewUser({name: '', email: '', password: ''})
+    setNewUser({username:'', name: '', email: '', password: ''})
     console.log('list of users',users)
     setCurrentUser(createdUser)
     console.log('this is created user', createdUser)
@@ -96,7 +99,7 @@ function App() {
     e.preventDefault()
     const existUser = {
       ...loginUser,
-      user: loginUser.user,
+      username: loginUser.username,
       name: loginUser.name,
       email: loginUser.email,
       password: loginUser.password
@@ -105,11 +108,15 @@ function App() {
     let res = await axios.get('http://localhost:3001/user/login')
     let foundUser = res.data
     setFindUser(foundUser)
-    if (foundUser.name === existUser.name && foundUser.email === existUser.email && foundUser.password === existUser.password) {
-      setCurrentUser(findUser)
-    } else if(foundUser.name === existUser.name || foundUser.email === existUser.email || foundUser.password === existUser.password) {
-      alert("Not an existing user! Try again!")
-    }
+    console.log(res.data)
+
+    // switch (foundUser.name)
+    
+    // if (foundUser.name === existUser.name && foundUser.email === existUser.email &&  foundUser.password === existUser.password) {
+    //   setCurrentUser(findUser)
+    // } else if(foundUser.name === existUser.name || foundUser.email === existUser.email || foundUser.password === existUser.password) {
+    //   alert("Not an existing user! Try again!")
+    // }
   }
 
   const loginHandleChange = (e) => {
@@ -196,7 +203,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} users={users} findUser={findUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
+          <Route path="/userlogin" element={<UserLogin loginUser={loginUser} users={users} findUser={findUser} currentUser={currentUser} getExistUser={getExistUser} loginHandleChange={loginHandleChange}/>} />
           <Route path="/usersignin" element={<UserSignin addNewUser={addNewUser} userHandleChange={userHandleChange} newUser={newUser} currentUser={currentUser} />} />
           <Route path="/userhome" element={<WelcomeUser currentUser={currentUser}/>} />
           <Route path="/userentries" element={<UserEntry userEntries={userEntries} currentUser={currentUser}  getUserEntries={getUserEntries} />} />
@@ -204,7 +211,7 @@ function App() {
           <Route path="/userentries/:id/update" element={<UpdateEntry selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry} updateUserEntry={updateUserEntry} handleChange={updatehandleChange}/>} />
           <Route path="/userentries/entry" element={<Entry newUserEntry={newUserEntry} handleChange={handleChange} addNewUserEntry={addNewUserEntry} currentUser={currentUser} />} />
           <Route path="/postcomment" element={<PostComment />} />
-          <Route path='/nav2' element={<Nav2 currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+          {/* <Route path='/nav2' element={<Nav2 currentUser={currentUser} setCurrentUser={setCurrentUser}/>} /> */}
         </Routes>
       </main>
 
