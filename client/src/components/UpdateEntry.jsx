@@ -1,23 +1,18 @@
-
-import { useEffect } from "react"
+////////////// IMPORT ////////////////
 import { useNavigate } from "react-router-dom"
 
+/////////// UPDATEENTRY COMPONENT FUNCTION ///////////
 const UpdateEntry = (props) => {
 
+    ///// VARIABLE DEFINING USERNAVIGATE /////
     let navigate = useNavigate()
 
+    /////ONSUBMIT FUNCTION /////
     const submitData = (e) => {
         e.preventDefault()
         props.updateUserEntry(props.selectedEntry)
         navigate('/userentries')
     }
-
-
-
-useEffect (() => {
-
-},)
-
 
     return (
         <div>

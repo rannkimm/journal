@@ -1,17 +1,14 @@
+//////////// IMPORT /////////////
 import Nav from './Nav'
-import { useNavigate } from 'react-router-dom'
 
+////////// USERLOGIN COMPONENT FUNCTION //////////////
 const UserLogin = (props) => {
 
-    let navigate = useNavigate()
 
+    ///// ONSUBMIT FUNCTION THAT CALLS ON GETEXISTUSER PROP /////
     const submitExistUser = (e) => {
         e.preventDefault()
         props.getExistUser(e)
-        // navigate('/userhome')
-
-
-        
     }
 
     return (

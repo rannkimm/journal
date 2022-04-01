@@ -1,18 +1,13 @@
+///////////// IMPORT ////////////
 import Nav from './Nav'
 
-
+//////////// USERSIGNIN COMPONENT FUNCTION /////////////
 const UserSignin = (props) => {
 
- 
-   
-
+    ///// ONSUBMIT FUNCTION THAT CALLS ON ADDNEWUSER PROP /////
     const submitNewUser = (e) => {
         e.preventDefault()
         props.addNewUser(e)
- 
-    
-        
-
     }
 
     return (

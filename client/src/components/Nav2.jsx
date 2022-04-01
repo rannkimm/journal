@@ -1,7 +1,11 @@
+////////////// IMPORT //////////////
 import { Link } from "react-router-dom"
 
+////////// NAV2 COMPONENT FUNCTION ////////////////
 const Nav2 = (props) => {
 
+
+    ///// FUNCTION TO RESET CURRENT USER /////
     const resetUser = () => {
         props.setCurrentUser({})
     }

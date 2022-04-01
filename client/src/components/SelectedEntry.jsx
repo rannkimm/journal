@@ -1,11 +1,15 @@
-
+///////////// IMPORT ////////////////
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
+/////////////////// SELECTEDENTRY COMPONENT FUNCTION /////////////////////
 const SelectedEntry = (props) => {
 
+    ///// DESTRUCTURING ENTRY ID /////
     let {id} = useParams()
+
+    ///// USEEFFECT /////
     useEffect(() => {
         async function getCurrentEntry() {
             let currentEntry = await props.userEntries.find( (entry) => {
@@ -17,8 +21,10 @@ const SelectedEntry = (props) => {
         getCurrentEntry()
     })
 
+    ///// VARIABLE DEFINING USENAVIGATE /////
     let navigate = useNavigate()
 
+    ///// FUNCTION FOR DELETE BUTTON /////
     const deleteButton = (e) => {
         e.preventDefault()
         props.deleteEntry(props.selectedEntry)

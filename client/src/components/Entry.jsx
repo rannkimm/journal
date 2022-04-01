@@ -1,6 +1,8 @@
+///////////// IMPORT ////////////////
 import Nav2 from './Nav2'
 import { useNavigate } from "react-router-dom"
 
+//////////// ENTRY COMPONENT FUNCTION //////////////
 const Entry = (props) => {
 
     let navigate = useNavigate()

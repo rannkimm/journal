@@ -1,5 +1,7 @@
+//////////////// IMPORT /////////////////
 import Nav from './Nav'
 
+////////////// HOME COMPONENT FUNCTION ////////////////
 const Home = (props) => {
 
 
