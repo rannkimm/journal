@@ -4,7 +4,7 @@ import Nav2 from "./Nav2"
 
 ///////// WELCOMEUSER COMPONENT FUNCTION ///////////
 const WelcomeUser = (props) => {
-    console.log(props.currentUser[0].name)
+    console.log(props.currentUser.name)
     return (
         <div>
             <Nav2 />
