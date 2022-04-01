@@ -1,4 +1,5 @@
 //////////// IMPORT /////////////
+import '../UserEntry.css'
 import Nav2 from './Nav2'
 import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
@@ -24,11 +25,11 @@ const UserEntry = (props) => {
             <Nav2 />
             <div>
                 {props.userEntries.map((entry) => (
-                    <div onClick={() => showEntry(entry)} key={entry._id}>
-                            <p>{entry.date}</p>
-                            <p>{entry.goal}</p>
-                            <p>{entry.toDo}</p>
-                            <p>{entry.message}</p>
+                    <div className='entry' onClick={() => showEntry(entry)} key={entry._id}>
+                            <p className='entryDate'>{entry.date}</p>
+                            <p className='entryGoal'>{entry.goal}</p>
+                            <p className='entryToDo'>{entry.toDo}</p>
+                            <p className='entryMessage'>{entry.message}</p>
                     </div>
                 ))}
             </div>

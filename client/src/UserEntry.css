@@ -1,0 +1,20 @@
+.entry {
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    height: 400px;
+    margin: auto;
+    gap: 0px 10px;
+    grid-template-areas: 
+    "entryDate entryMessage"
+    "entryGoal entryMessage"
+    "entryToDo entryMessage"
+    "entryToDo entryMessage"
+    "entryToDo entryMessage"
+    "entryToDo entryMessage"; 
+}
+.entryDate { grid-area: entryDate; }
+.entryGoal { grid-area: entryGoal; }
+.entryToDo { grid-area: entryToDo; }
+.entryMessage { grid-area: entryMessage; }
