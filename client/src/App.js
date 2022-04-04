@@ -58,7 +58,7 @@ function App() {
     /// FUNCTION TO GET ALL ENTRIES ///
     async function getEntries() {
       try {
-        let res = await axios.get(`/entry`)
+        let res = await axios.get(`http://${window.location.origin}/entry`)
         setEntries(res.data)
       } catch (error) {
         console.log(error)
@@ -68,7 +68,7 @@ function App() {
     /// FUNCTION TO GET ALL USERS ///
     async function getAllUsers() {
       try {
-      let response = await axios.get(`/user`)
+      let response = await axios.get(`http://${window.location.origin}/user`)
       setUsers(response.data)
       } catch (error) {
         console.log(error)
@@ -96,7 +96,7 @@ function App() {
     }
     
      if(currentUsersList.find(user => user.username === createUser.username) === undefined && createUser.password === createUser.confirmPassword) {
-        let res = await axios.post(`/user/signin`, createUser)
+        let res = await axios.post(`http://${window.location.origin}/user/signin`, createUser)
         let createdUser = res.data
         currentUsersList.push(createdUser)
         setUsers(currentUsersList)
@@ -131,7 +131,7 @@ function App() {
       setLoginUser({username:'', password:''})
     } else {
         let res = await axios({
-          url: `/${existUser.username}/${existUser.password}`,
+          url: `http://${window.location.origin}/user/login/${existUser.username}/${existUser.password}`,
           method: 'get',
           data: {username: existUser.username, password: existUser.password}
         })
@@ -149,7 +149,7 @@ function App() {
     try {
       console.log("in get user entries")
       let res = await axios({
-        url: `/entry/${currentUser._id}`,
+        url: `http://${window.location.origin}/entry/${currentUser._id}`,
         method: 'get',
         data: {user: currentUser._id}
       })
@@ -172,7 +172,7 @@ function App() {
       message: newUserEntry.message
     }
 
-    let res = await axios.post(`/entry/new`, createEntry)
+    let res = await axios.post(`http://${window.location.origin}/entry/new`, createEntry)
     currentEntry.push(res.data)
     setUserEntries(currentEntry)
     setNewUserEntry({user: '', date: '', goal: '', toDo: '', message: ''})
@@ -189,7 +189,7 @@ function App() {
     }
 
     let updatedEntry = await axios({
-      url: `/entry/${updateEntry._id}/update`,
+      url: `http://${window.location.origin}/entry/${updateEntry._id}/update`,
       method: 'put',
       data: updateEntry
     })
@@ -208,7 +208,7 @@ function App() {
     const toDelete = selectedEntry
 
     let deletedEntry = await axios({
-      url: `/entry/${toDelete._id}`,
+      url: `http://${window.location.origin}/entry/${toDelete._id}`,
       method: 'delete',
       data: toDelete
     })
