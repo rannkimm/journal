@@ -113,8 +113,8 @@ function App() {
       }
   }
 
-  const userHandleChange = (e) => {
-    setNewUser({...newUser, [e.target.name]: e.target.value})
+  async function userHandleChange(e) {
+    await setNewUser({...newUser, [e.target.name]: e.target.value})
   }
 
   /////////////// FUNCTIONS FOR USERLOGIN COMPONENT ///////////////
