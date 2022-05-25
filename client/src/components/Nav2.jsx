@@ -8,6 +8,7 @@ const Nav2 = (props) => {
     ///// FUNCTION TO RESET CURRENT USER /////
     const resetUser = () => {
         props.setCurrentUser({})
+        localStorage.clear()
     }
 
     return (

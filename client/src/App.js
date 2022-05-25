@@ -58,20 +58,20 @@ function App() {
     /// FUNCTION TO GET ALL ENTRIES ///
     async function getEntries() {
       try {
-        let res = await axios.get(`http://${window.location.origin}/entry`)
+        let res = await axios.get(`http://localhost:3001/entry`)
         setEntries(res.data)
       } catch (error) {
-        console.log(error)
+          throw error
       }
     }
     
     /// FUNCTION TO GET ALL USERS ///
     async function getAllUsers() {
       try {
-      let response = await axios.get(`http://${window.location.origin}/user`)
+      let response = await axios.get(`http://localhost:3001/user`)
       setUsers(response.data)
       } catch (error) {
-        console.log(error)
+         throw error
       }
     }
 
@@ -85,7 +85,7 @@ function App() {
   const addNewUser = async (e) => {
     e.preventDefault()
     const currentUsersList = users
-    const createUser = {
+    let createUser = {
       ...newUser,
       username: newUser.username,
       name: newUser.name,
@@ -96,12 +96,14 @@ function App() {
     }
     
      if(currentUsersList.find(user => user.username === createUser.username) === undefined && createUser.password === createUser.confirmPassword) {
-        let res = await axios.post(`http://${window.location.origin}/user/signin`, createUser)
+        let res = await axios.post(`http://localhost:3001/user/signin`, createUser)
         let createdUser = res.data
         currentUsersList.push(createdUser)
         setUsers(currentUsersList)
         setNewUser({username:'', name: '', email: '', password: '', confirmPassword:''})
         setCurrentUser(createdUser)
+        console.log(res.data.id)
+        localStorage.setItem('currentUser', res.data.id)
         navigate('/userhome')
         return
       } else if(createUser.password !== createUser.confirmPassword) {
@@ -131,11 +133,12 @@ function App() {
       setLoginUser({username:'', password:''})
     } else {
         let res = await axios({
-          url: `http://${window.location.origin}/user/login/${existUser.username}/${existUser.password}`,
+          url: `http://localhost:3001/user/login/${existUser.username}/${existUser.password}`,
           method: 'get',
           data: {username: existUser.username, password: existUser.password}
         })
         await setCurrentUser(res.data)
+        localStorage.getItem('currentUser', res.data)
         loginNavigate('/userhome')
     }
   }
@@ -149,7 +152,7 @@ function App() {
     try {
       console.log("in get user entries")
       let res = await axios({
-        url: `http://${window.location.origin}/entry/${currentUser._id}`,
+        url: `http://localhost:3001/entry/${currentUser._id}`,
         method: 'get',
         data: {user: currentUser._id}
       })
@@ -172,7 +175,7 @@ function App() {
       message: newUserEntry.message
     }
 
-    let res = await axios.post(`http://${window.location.origin}/entry/new`, createEntry)
+    let res = await axios.post(`http://localhost:3001/entry/new`, createEntry)
     currentEntry.push(res.data)
     setUserEntries(currentEntry)
     setNewUserEntry({user: '', date: '', goal: '', toDo: '', message: ''})
@@ -189,7 +192,7 @@ function App() {
     }
 
     let updatedEntry = await axios({
-      url: `http://${window.location.origin}/entry/${updateEntry._id}/update`,
+      url: `http://localhost:3001/entry/${updateEntry._id}/update`,
       method: 'put',
       data: updateEntry
     })
@@ -208,7 +211,7 @@ function App() {
     const toDelete = selectedEntry
 
     let deletedEntry = await axios({
-      url: `http://${window.location.origin}/entry/${toDelete._id}`,
+      url: `http://localhost:3001/entry/${toDelete._id}`,
       method: 'delete',
       data: toDelete
     })
