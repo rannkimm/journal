@@ -1,5 +1,5 @@
 ///////////// IMPORT ////////////////
-import '../SelectedEntry.css'
+import '..styles/SelectedEntry.css'
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"

@@ -1,5 +1,5 @@
 ////////////// IMPORT ////////////////
-import '../Entry.css'
+import '..styles/Entry.css'
 import { useNavigate } from "react-router-dom"
 
 /////////// UPDATEENTRY COMPONENT FUNCTION ///////////

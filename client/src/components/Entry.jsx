@@ -1,5 +1,5 @@
 ///////////// IMPORT ////////////////
-import '../Entry.css'
+import '..styles/Entry.css'
 import Nav2 from './Nav2'
 import { useNavigate } from "react-router-dom"
 

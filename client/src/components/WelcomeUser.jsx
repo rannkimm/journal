@@ -1,5 +1,5 @@
 ///////////// IMPORT /////////////
-import '../WelcomeUser.css'
+import '..styles/WelcomeUser.css'
 import Nav2 from "./Nav2"
 
 ///////// WELCOMEUSER COMPONENT FUNCTION ///////////

@@ -1,5 +1,5 @@
 //////////////// IMPORT /////////////////
-import '../Home.css'
+import '..styles/Home.css'
 import Nav from './Nav'
 
 ////////////// HOME COMPONENT FUNCTION ////////////////

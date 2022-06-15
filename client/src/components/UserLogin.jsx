@@ -1,5 +1,5 @@
 //////////// IMPORT /////////////
-import '../UserLogin.css'
+import '..styles/UserLogin.css'
 import Nav from './Nav'
 
 ////////// USERLOGIN COMPONENT FUNCTION //////////////

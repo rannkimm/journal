@@ -1,5 +1,5 @@
 ///////////// IMPORT ////////////
-import './App.css';
+import '.styles/App.css';
 import axios from 'axios';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from './components/Home';

@@ -1,5 +1,5 @@
 //////////// IMPORT /////////////
-import '../UserEntry.css'
+import '..styles/UserEntry.css'
 import Nav2 from './Nav2'
 import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
