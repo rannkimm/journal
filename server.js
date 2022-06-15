@@ -25,25 +25,25 @@ app.get("/", (req, res) => {
 //////////// USER ROUTES ///////////
 
 // FIND ALL USERS //
-app.get("/user", async (req, res) => {
+app.get("/api/user", async (req, res) => {
   const users = await User.find({})
   res.json(users)
 })
 
 // CREATE NEW USER //
-app.post("/user/signin", async (req, res) => {
+app.post("/api/user/signin", async (req, res) => {
   const newUser = await User.create(req.body)
   await res.json(newUser)
 })
 
 // FIND LOGIN USER //
-app.get("/user/login/:username/:password", async (req, res) => {
+app.get("/api/user/login/:username/:password", async (req, res) => {
   const existUser = await User.find({username:req.params.username, password:req.params.password})
   res.json(existUser)
 })
 
 // DELETE USER //
-app.delete('/user/:id', async (req, res) => {
+app.delete('/api/user/:id', async (req, res) => {
   await User.findByIdAndDelete(req.params.id)
   res.send('Deleted')
 })
@@ -51,32 +51,32 @@ app.delete('/user/:id', async (req, res) => {
 //////////// ENTRY ROUTES ///////////
 
 // FIND ALL ENTRIES //
-app.get("/entry", async (req, res) => {
+app.get("/api/entry", async (req, res) => {
   const entries = await Entry.find({})
   res.json(entries)
 })
 
 // FIND ENTRIES FROM ONE USER //
-app.get("/entry/:user", async (req, res) => {
+app.get("/api/entry/:user", async (req, res) => {
   const entries = await Entry.find({user:req.params.user})
   res.json(entries)
 })
 
 // UPDATE ENTRY //
-app.put("/entry/:id/update", async (req, res) => {
+app.put("/api/entry/:id/update", async (req, res) => {
   console.log(req.body)
   const selected = await Entry.findByIdAndUpdate({_id:req.params.id}, req.body, {new: true})
   res.json(selected)
 })
 
 // DELETE ENTRY //
-app.delete("/entry/:id", async (req, res) => {
+app.delete("/api/entry/:id", async (req, res) => {
   await Entry.findByIdAndDelete(req.params.id)
   res.send(req.params.id)
 })
 
 // CREATE NEW ENTRY //
-app.post("/entry/new", async (req, res) => {
+app.post("/api/entry/new", async (req, res) => {
   const newEntry = await Entry.create(req.body);
   await res.json(newEntry);
 });
